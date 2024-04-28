@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardsMaterial extends StatefulWidget {
@@ -14,7 +13,7 @@ class CardsMaterial extends StatefulWidget {
   final Color? colorIconsButtons;
   final VoidCallback? onPress;
   final double? radiusCircularCard;
-  CardsMaterial({
+  const CardsMaterial({
     super.key,
     this.cardWidth,
     this.cardHeight,
@@ -78,7 +77,7 @@ class _CardsMaterialState extends State<CardsMaterial> {
           Row(
             children: [
               Text(widget.titleText),
-              Spacer(),
+              const Spacer(),
               IconButton(
                   onPressed: widget.onPress, icon: widget.iconEditButton),
               const SizedBox(width: 5.0),
