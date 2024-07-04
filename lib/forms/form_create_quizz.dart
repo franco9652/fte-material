@@ -218,27 +218,39 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            ElevatedButton(
-                              onPressed: widget.onCancel,
-                              child: Text(
-                                widget.cancelButtonText,
-                                style: widget.cancelButtonTextStyle,
-                              ),
-                              style: widget.cancelButtonStyle ??
-                                  ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.grey,
+                            InkWell(
+                              child: Container(
+                                height: 33,
+                                width: 106,
+                                decoration: BoxDecoration(
+                                  color: widget.backgroundColor,
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    widget.cancelButtonText,
+                                    style: widget.cancelButtonTextStyle,
                                   ),
+                                ),
+                              ),
+                              onTap: widget.onCancel,
                             ),
-                            ElevatedButton(
-                              onPressed: widget.onAccept,
-                              child: Text(
-                                widget.acceptButtonText,
-                                style: widget.acceptButtonTextStyle,
-                              ),
-                              style: widget.acceptButtonStyle ??
-                                  ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xff004643),
+                            InkWell(
+                              child: Container(
+                                height: 33,
+                                width: 106,
+                                decoration: BoxDecoration(
+                                  color: widget.backgroundColor,
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    widget.acceptButtonText,
+                                    style: widget.acceptButtonTextStyle,
                                   ),
+                                ),
+                              ),
+                              onTap: widget.onAccept,
                             ),
                           ],
                         ),
