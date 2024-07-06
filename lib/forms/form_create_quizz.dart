@@ -20,12 +20,6 @@ class CustomQuizForm extends StatefulWidget {
   final TextEditingController option2Controller;
   final TextEditingController option3Controller;
   final TextEditingController questionController;
-  final bool isOption1Correct;
-  final bool isOption2Correct;
-  final bool isOption3Correct;
-  final ValueChanged<bool?> onOption1Changed;
-  final ValueChanged<bool?> onOption2Changed;
-  final ValueChanged<bool?> onOption3Changed;
   final VoidCallback onCancel;
   final VoidCallback onAccept;
   final String cancelButtonText;
@@ -53,12 +47,6 @@ class CustomQuizForm extends StatefulWidget {
     required this.option2Controller,
     required this.option3Controller,
     required this.questionController,
-    required this.isOption1Correct,
-    required this.isOption2Correct,
-    required this.isOption3Correct,
-    required this.onOption1Changed,
-    required this.onOption2Changed,
-    required this.onOption3Changed,
     required this.onCancel,
     required this.onAccept,
     required this.cancelButtonText,
@@ -75,14 +63,6 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
   bool isOption1Correct = false;
   bool isOption2Correct = false;
   bool isOption3Correct = false;
-
-  @override
-  void initState() {
-    super.initState();
-    isOption1Correct = widget.isOption1Correct;
-    isOption2Correct = widget.isOption2Correct;
-    isOption3Correct = widget.isOption3Correct;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +138,6 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                                 setState(() {
                                   isOption1Correct = value ?? false;
                                 });
-                                widget.onOption1Changed(value);
                               },
                             ),
                           ],
@@ -187,7 +166,6 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                                 setState(() {
                                   isOption2Correct = value ?? false;
                                 });
-                                widget.onOption2Changed(value);
                               },
                             ),
                           ],
@@ -216,7 +194,6 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                                 setState(() {
                                   isOption3Correct = value ?? false;
                                 });
-                                widget.onOption3Changed(value);
                               },
                             ),
                           ],
@@ -247,7 +224,7 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                                 height: screenHeight * 0.05,
                                 width: screenWidth * 0.25,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey,
+                                  color: widget.backgroundColor,
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Center(
@@ -259,13 +236,15 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                               ),
                             ),
                             InkWell(
-                              onTap: widget.onAccept,
+                              onTap: () {
+                                widget.onAccept();
+                                setState(() {});
+                              },
                               child: Container(
                                 height: screenHeight * 0.05,
                                 width: screenWidth * 0.25,
                                 decoration: BoxDecoration(
-                                  color: widget.backgroundColor ??
-                                      const Color(0xff004643),
+                                  color: widget.backgroundColor,
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Center(
