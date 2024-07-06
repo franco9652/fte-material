@@ -28,8 +28,6 @@ class CustomQuizForm extends StatefulWidget {
   final ValueChanged<bool?> onOption3Changed;
   final VoidCallback onCancel;
   final VoidCallback onAccept;
-  final ButtonStyle? cancelButtonStyle;
-  final ButtonStyle? acceptButtonStyle;
   final String cancelButtonText;
   final String acceptButtonText;
   final TextStyle? cancelButtonTextStyle;
@@ -63,8 +61,6 @@ class CustomQuizForm extends StatefulWidget {
     required this.onOption3Changed,
     required this.onCancel,
     required this.onAccept,
-    this.cancelButtonStyle,
-    this.acceptButtonStyle,
     required this.cancelButtonText,
     required this.acceptButtonText,
     this.cancelButtonTextStyle,
@@ -76,6 +72,18 @@ class CustomQuizForm extends StatefulWidget {
 }
 
 class _CustomQuizFormState extends State<CustomQuizForm> {
+  bool isOption1Correct = false;
+  bool isOption2Correct = false;
+  bool isOption3Correct = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isOption1Correct = widget.isOption1Correct;
+    isOption2Correct = widget.isOption2Correct;
+    isOption3Correct = widget.isOption3Correct;
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -145,8 +153,13 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                               ),
                             ),
                             Checkbox(
-                              value: widget.isOption1Correct,
-                              onChanged: widget.onOption1Changed,
+                              value: isOption1Correct,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  isOption1Correct = value ?? false;
+                                });
+                                widget.onOption1Changed(value);
+                              },
                             ),
                           ],
                         ),
@@ -169,8 +182,13 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                               ),
                             ),
                             Checkbox(
-                              value: widget.isOption2Correct,
-                              onChanged: widget.onOption2Changed,
+                              value: isOption2Correct,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  isOption2Correct = value ?? false;
+                                });
+                                widget.onOption2Changed(value);
+                              },
                             ),
                           ],
                         ),
@@ -193,8 +211,13 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                               ),
                             ),
                             Checkbox(
-                              value: widget.isOption3Correct,
-                              onChanged: widget.onOption3Changed,
+                              value: isOption3Correct,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  isOption3Correct = value ?? false;
+                                });
+                                widget.onOption3Changed(value);
+                              },
                             ),
                           ],
                         ),
@@ -219,11 +242,12 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             InkWell(
+                              onTap: widget.onCancel,
                               child: Container(
-                                height: 33,
-                                width: 106,
+                                height: screenHeight * 0.05,
+                                width: screenWidth * 0.25,
                                 decoration: BoxDecoration(
-                                  color: widget.backgroundColor,
+                                  color: Colors.grey,
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Center(
@@ -233,14 +257,15 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                                   ),
                                 ),
                               ),
-                              onTap: widget.onCancel,
                             ),
                             InkWell(
+                              onTap: widget.onAccept,
                               child: Container(
-                                height: 33,
-                                width: 106,
+                                height: screenHeight * 0.05,
+                                width: screenWidth * 0.25,
                                 decoration: BoxDecoration(
-                                  color: widget.backgroundColor,
+                                  color: widget.backgroundColor ??
+                                      const Color(0xff004643),
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Center(
@@ -250,7 +275,6 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                                   ),
                                 ),
                               ),
-                              onTap: widget.onAccept,
                             ),
                           ],
                         ),
