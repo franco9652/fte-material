@@ -20,6 +20,12 @@ class CustomQuizForm extends StatefulWidget {
   final TextEditingController option2Controller;
   final TextEditingController option3Controller;
   final TextEditingController questionController;
+  final bool isOption1Correct;
+  final bool isOption2Correct;
+  final bool isOption3Correct;
+  final ValueChanged<bool?> onOption1Changed;
+  final ValueChanged<bool?> onOption2Changed;
+  final ValueChanged<bool?> onOption3Changed;
   final VoidCallback onCancel;
   final VoidCallback onAccept;
   final String cancelButtonText;
@@ -47,6 +53,12 @@ class CustomQuizForm extends StatefulWidget {
     required this.option2Controller,
     required this.option3Controller,
     required this.questionController,
+    required this.isOption1Correct,
+    required this.isOption2Correct,
+    required this.isOption3Correct,
+    required this.onOption1Changed,
+    required this.onOption2Changed,
+    required this.onOption3Changed,
     required this.onCancel,
     required this.onAccept,
     required this.cancelButtonText,
@@ -60,10 +72,6 @@ class CustomQuizForm extends StatefulWidget {
 }
 
 class _CustomQuizFormState extends State<CustomQuizForm> {
-  bool isOption1Correct = false;
-  bool isOption2Correct = false;
-  bool isOption3Correct = false;
-
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -133,12 +141,8 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                               ),
                             ),
                             Checkbox(
-                              value: isOption1Correct,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isOption1Correct = value ?? false;
-                                });
-                              },
+                              value: widget.isOption1Correct,
+                              onChanged: widget.onOption1Changed,
                             ),
                           ],
                         ),
@@ -161,12 +165,8 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                               ),
                             ),
                             Checkbox(
-                              value: isOption2Correct,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isOption2Correct = value ?? false;
-                                });
-                              },
+                              value: widget.isOption2Correct,
+                              onChanged: widget.onOption2Changed,
                             ),
                           ],
                         ),
@@ -189,12 +189,8 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                               ),
                             ),
                             Checkbox(
-                              value: isOption3Correct,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isOption3Correct = value ?? false;
-                                });
-                              },
+                              value: widget.isOption3Correct,
+                              onChanged: widget.onOption3Changed,
                             ),
                           ],
                         ),
@@ -236,10 +232,7 @@ class _CustomQuizFormState extends State<CustomQuizForm> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {
-                                widget.onAccept();
-                                setState(() {});
-                              },
+                              onTap: widget.onAccept,
                               child: Container(
                                 height: screenHeight * 0.05,
                                 width: screenWidth * 0.25,
